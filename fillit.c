@@ -71,16 +71,7 @@ int validate_integer(int tetrimino, int shapes[7][4])
 	return (0);
 }
 
-int realign_tetrimino(int t)
-{
-	int aligned_tet;
-	
-	aligned_tet = realign_x(t);
-	aligned_tet = (realign_y(aligned_tet));
-	return (aligned_tet);
-}
-
-int	realign_x(int t)
+static int	realign_x(int t)
 {
 	int i;
 
@@ -99,7 +90,7 @@ int	realign_x(int t)
 	return (t);
 }
 
-int	realign_y(int t)
+static int	realign_y(int t)
 {
 	int i;
 
@@ -115,6 +106,15 @@ int	realign_y(int t)
 		t = t >> 4;
 	}
 	return (t);
+}
+
+int realign_tetrimino(int t)
+{
+	int aligned_tet;
+	
+	aligned_tet = realign_x(t);
+	aligned_tet = (realign_y(aligned_tet));
+	return (aligned_tet);
 }
 
 //Muuttaa minkä tahansa luvun 4x4 ASCII kuvauksesksi, 
