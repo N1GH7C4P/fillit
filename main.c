@@ -17,10 +17,10 @@ int main(int argc, char **argv)
 	
 	static int shapes[7][4] =
 	{
-		{ 610, 624, 562, 114 }, // 'T'
+		{ 305, 39, 562, 114 }, // 'T'
 		{ 561, 54, 561, 54 }, // 'S'
-		{ 306, 99, 306, 99}, // 'Z'
-		{ 8738, 240, 8738, 240 }, // 'I'
+		{ 306, 99, 306, 99 }, // 'Z'
+		{ 4369, 15, 4369, 15 }, // 'I'
 		{ 802, 113, 275, 71 }, // 'J'
 		{ 785, 23, 547, 116 }, // 'L'
 		{ 51, 51, 51, 51 }  // 'O'
@@ -53,11 +53,22 @@ int main(int argc, char **argv)
 		i++;
     }
 	free(line);
-	
-	ft_print_tetrimino(lines);
-	ft_putnbr(tetrimino_to_bitarray(lines, '#'));
-	ft_putstr("\n");
-	int b = validate_tetrimino(lines, '#', shapes);
+	print_tetrimino(lines);
+	int a = (tetrimino_to_bitarray(lines, '#'));
+	char **unaligned_tet = int_to_tetrimino(a, '#', '.');
+	int b = validate_tetrimino(unaligned_tet, '#', shapes);
+	ft_putnbr(a);
+	ft_putstr(" is a valid tetrinimo: ");
+	ft_putnbr(b);
+	ft_putendl("");
+	ft_putendl("");
+	int c = realign_tetrimino(a);
+	char **aligned_tet = int_to_tetrimino(c, '#', '.');
+	b = validate_tetrimino(aligned_tet, '#', shapes);
+	char**	new_tet = int_to_tetrimino(c, '#', '.');
+	print_tetrimino(new_tet);
+	ft_putnbr(tetrimino_to_bitarray(new_tet, '#'));
+	ft_putstr(" is a valid tetrinimo: ");
 	ft_putnbr(b);
 	ft_putstr("\n");
 	free(lines);

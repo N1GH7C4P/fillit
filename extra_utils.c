@@ -44,7 +44,7 @@ long long int_to_bin(int k) {
 }
 
 //Muuttaa 4x4 ASCII ruudukon binääriluvuksi, joka talletetaan int -muuttujaan bitwise menetelmällä.
-int ft_ascii_to_int(char **tetrimino, char c)
+int ascii_to_int(char **tetrimino, char c)
 {
 	int nb;
 	int i;
@@ -67,7 +67,7 @@ int ft_ascii_to_int(char **tetrimino, char c)
 }
 
 //Tulostaa 4x4 ASCII tetriminon standard outputtiin
-void ft_print_tetrimino(char **tetrimino)
+void print_tetrimino(char **tetrimino)
 {
 	int i;
 	int j;
@@ -83,35 +83,7 @@ void ft_print_tetrimino(char **tetrimino)
 		}
 		i++;
 	}
-}
-
-//Muuttaa minkä tahansa luvun 4x4 ASCII kuvauksesksi, 
-//muuttaen 1 : 'c' -merkiksi ja 0 : 'empty' -merkiksi.
-//Rivit erotetaan toisistaan '\n' merkillä.
-
-char**	hex_to_tetrimino(int shape, char c, char empty)
-{
-	char **tetrimino = (char**)malloc(sizeof(char*) * 5);
-
-	int y, x;
-
-	y = 0;
-	while (y < 4)
-	{
-		x = 0;
-		tetrimino[y] = (char *)malloc(5);
-		while (x < 4)
-		{
-			if (shape & (0x8000 >> (y * 4 + x)))
-				tetrimino[y][x] = c;
-			else
-				tetrimino[y][x] = empty;
-			x++;
-		}
-		tetrimino[y][x] = '\n';
-		y++;
-	}
-	return (tetrimino);
+	ft_putendl("");
 }
 
 //Prints prototypes of all valid tetrinos given in numeric form.
@@ -123,18 +95,18 @@ void printAllShapes(int shapes[7][4])
 	char **tetrinimo;
 
 	i = 0;
-	while(i < 4)
+	while(i < 7)
 	{
 		j = 0;
 		while(j < 4)
 		{
-			tetrinimo = hex_to_tetrimino(shapes[i][j], '#', '.');
-			ft_print_tetrimino(tetrinimo);
-			ft_putendl("");
+			tetrinimo = int_to_tetrimino(shapes[i][j], '#', '.');
 			ft_putnbr(shapes[i][j]);
 			ft_putendl("");
+			print_tetrimino(tetrinimo);		
 			j++;
 		}
+		ft_putendl("");
 		i++;
 	}
 }

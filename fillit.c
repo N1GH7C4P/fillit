@@ -50,3 +50,98 @@ int validate_tetrimino(char** tetrimino, char c, int shapes[7][4])
 	}
 	return (0);
 }
+
+int validate_integer(int tetrimino, int shapes[7][4])
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 7)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (tetrimino == shapes[i][j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int realign_tetrimino(int t)
+{
+	int aligned_tet;
+	
+	aligned_tet = realign_x(t);
+	aligned_tet = (realign_y(aligned_tet));
+	return (aligned_tet);
+}
+
+int	realign_x(int t)
+{
+	int i;
+
+	while(t)
+	{
+	i = 0;
+		while (i < 16)
+		{
+			if (TestBit(t,i)))
+				return (t);
+			i += 4;
+		}
+		t = t >> 1;
+	}
+
+	return (t);
+}
+
+int	realign_y(int t)
+{
+	int i;
+
+	while(t)
+	{
+	i = 0;
+		while (i < 4)
+		{
+			if (TestBit(t,i)))
+				return (t);
+			i++;
+		}
+		t = t >> 4;
+	}
+	return (t);
+}
+
+//Muuttaa minkä tahansa luvun 4x4 ASCII kuvauksesksi, 
+//muuttaen 1 : 'c' -merkiksi ja 0 : 'empty' -merkiksi.
+//Rivit erotetaan toisistaan '\n' merkillä.
+
+char**	int_to_tetrimino(int shape, char c, char empty)
+{
+	char **tetrimino = (char**)malloc(sizeof(char*) * 5);
+
+	int y, x;
+
+	y = 0;
+	while (y < 4)
+	{
+		x = 0;
+		tetrimino[y] = (char *)malloc(5);
+		while (x < 4)
+		{
+			if (TestBit(shape,(y * 4 + x))))
+				tetrimino[y][x] = c;
+			else
+				tetrimino[y][x] = empty;
+			x++;
+		}
+		tetrimino[y][x] = '\n';
+		y++;
+	}
+	return (tetrimino);
+}
